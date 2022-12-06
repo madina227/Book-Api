@@ -14,7 +14,7 @@ class SplashScreen : Fragment(R.layout.screen_splash) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launch {
             delay(1000)
-            findNavController().navigate(R.id.action_splashScreen_to_signUpScreen)
+            findNavController().navigate(SplashScreenDirections.actionSplashScreenToLoginScreen())
         }
     }
 }

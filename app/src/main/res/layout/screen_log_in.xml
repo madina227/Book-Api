@@ -46,7 +46,7 @@
         app:layout_constraintHorizontal_bias="0.612"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:mask="+### ## ### ## ##" />
+        app:mask="+###(##)#######" />
 
     <EditText
         android:id="@+id/enter_password"
