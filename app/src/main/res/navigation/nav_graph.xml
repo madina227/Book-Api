@@ -10,10 +10,20 @@
         android:label="SplashScreen" >
         <action
             android:id="@+id/action_splashScreen_to_signUpScreen"
-            app:destination="@id/signUpScreen" />
+            app:destination="@id/signUpScreen"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signUpScreen"
         android:name="uz.gita.bookapi.presentation.signUp.SignUpScreen"
-        android:label="SignUpScreen" />
+        android:label="SignUpScreen" >
+        <action
+            android:id="@+id/action_signUpScreen_to_signUpVerifyScreen"
+            app:destination="@id/signUpVerifyScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpVerifyScreen"
+        android:name="uz.gita.bookapi.presentation.signUp.SignUpVerifyScreen"
+        android:label="SignUpVerifyScreen" />
 </navigation>

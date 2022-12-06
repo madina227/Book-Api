@@ -1,8 +1,9 @@
 package uz.gita.bookapi.domain.usecase
 
 import android.util.Log
+import javax.inject.Inject
 
-class BaseSignUseCaseImpl : BaseSignUseCase {
+class BaseSignUseCaseImpl @Inject constructor(): BaseSignUseCase {
 
     override fun checkNumber(number: String): Boolean {
         val checkedNumber = StringBuilder()

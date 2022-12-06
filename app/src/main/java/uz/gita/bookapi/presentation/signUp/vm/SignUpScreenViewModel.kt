@@ -14,7 +14,9 @@ interface SignUpScreenViewModel {
     val isLoading: Flow<Boolean>
     val isConnecting: Flow<Boolean>
     val errorMsg: Flow<String>
+    val message:Flow<Boolean>
 
-    fun register(signUpRequest: SignUpRequest)
-    fun openLogInScreen()
+    suspend fun register(signUpRequest: SignUpRequest)
+    suspend fun back()
+    suspend fun openVerifyScreen(firstName:String, lastName:String, number:String, password1:String, password2: String)
 }

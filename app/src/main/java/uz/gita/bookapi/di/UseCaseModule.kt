@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import uz.gita.bookapi.domain.usecase.*
+import javax.inject.Singleton
 
 /**
  * @author : Madina Agzamova
@@ -15,12 +16,16 @@ import uz.gita.bookapi.domain.usecase.*
 @Module
 @InstallIn(SingletonComponent::class)
 interface UseCaseModule {
+
     @Binds
+    @Singleton
     fun bindBaseUseCase(baseSignUseCaseImpl: BaseSignUseCaseImpl): BaseSignUseCase
 
     @Binds
+    @Singleton
     fun bindCheckPasswordUseCase(checkPasswordUseCaseImpl: CheckPasswordUseCaseImpl): CheckPasswordUseCase
 
     @Binds
+    @Singleton
     fun bindSignUpUseCase(signUpUseCaseImpl: SignUpUseCaseImpl): SignUpUseCase
 }
