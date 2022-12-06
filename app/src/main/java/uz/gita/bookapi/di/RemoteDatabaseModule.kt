@@ -1,6 +1,7 @@
 package uz.gita.bookapi.di
 
 import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.mocklets.pluto.Pluto
 import com.mocklets.pluto.PlutoInterceptor
 import dagger.Module
@@ -23,8 +24,9 @@ class RemoteDatabaseModule {
 
     @Provides
     @Singleton
-    fun client(): OkHttpClient = OkHttpClient.Builder()
+    fun client(@ApplicationContext context: Context): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(PlutoInterceptor())
+        .addInterceptor(ChuckerInterceptor(context))
         .build()
 
     @Provides

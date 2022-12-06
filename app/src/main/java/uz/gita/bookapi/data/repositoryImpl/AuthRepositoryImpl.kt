@@ -24,7 +24,6 @@ class AuthRepositoryImpl @Inject constructor(
     private val shp: Shp
 ) : AuthRepository {
     override suspend fun signUp(signUpRequest: SignUpRequest): Flow<ResultData<Unit>> =
-
         flow<ResultData<Unit>> {
             if (hasConnection(context = context)) {
                 emit(ResultData.HasConnection(true))

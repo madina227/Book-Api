@@ -61,14 +61,14 @@ class SignUpScreenViewModelImpl @Inject constructor(
         if (useCase.checkName(firstName) && useCase.checkName(lastName) && useCase.checkSamePassword(
                 password1,
                 password2
-            ) && numberUseCase.checkNumber(number)
+            ) && numberUseCase.checkNumber(number).length > 10
         ) {
             message.emit(true)
             register(
                 SignUpRequest(
                     firstName = firstName,
                     lastName = lastName,
-                    phone = number,
+                    phone = numberUseCase.checkNumber(number),
                     password = password1
                 )
             )
