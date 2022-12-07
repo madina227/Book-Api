@@ -1,7 +1,6 @@
 package uz.gita.bookapi.data.repositoryImpl
 
 import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -16,9 +15,12 @@ import uz.gita.bookapi.data.remote.dto.auth.request.SignUpVerifyRequest
 import uz.gita.bookapi.data.remote.service.AuthApi
 import uz.gita.bookapi.domain.repository.AuthRepository
 import uz.gita.bookapi.utils.hasConnection
-import javax.inject.Inject
 
-class AuthRepositoryImpl : AuthRepository {
+class AuthRepositoryImpl(
+    private val authApi: AuthApi,
+    val context: Context,
+    private val shp: Shp
+) : AuthRepository {
     override suspend fun signUp(signUpRequest: SignUpRequest): Flow<ResultData<Unit>> =
         flow<ResultData<Unit>> {
             if (hasConnection(context = context)) {

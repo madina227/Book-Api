@@ -8,8 +8,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import uz.gita.bookapi.data.local.Shp
 import uz.gita.bookapi.data.remote.service.AuthApi
+import uz.gita.bookapi.data.remote.service.BookApi
 import uz.gita.bookapi.data.repositoryImpl.AuthRepositoryImpl
+import uz.gita.bookapi.data.repositoryImpl.BookRepositoryImpl
 import uz.gita.bookapi.domain.repository.AuthRepository
+import uz.gita.bookapi.domain.repository.BookRepository
 import javax.inject.Singleton
 
 @Module
@@ -24,6 +27,16 @@ object RepositoryModule {
         @ApplicationContext context: Context
     ): AuthRepository {
         return AuthRepositoryImpl(authApi, context, shp)
+    }
+
+    @Provides
+    @Singleton
+    fun provideBookRepository(
+        bookApi: BookApi,
+        shp: Shp,
+        @ApplicationContext context: Context
+    ): BookRepository {
+        return BookRepositoryImpl(bookApi, shp, context)
     }
 
 

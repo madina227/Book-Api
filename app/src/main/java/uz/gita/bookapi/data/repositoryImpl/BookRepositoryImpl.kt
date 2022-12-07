@@ -1,13 +1,20 @@
 package uz.gita.bookapi.data.repositoryImpl
 
+import android.content.Context
 import kotlinx.coroutines.flow.Flow
+import uz.gita.bookapi.data.local.Shp
 import uz.gita.bookapi.data.model.ResultData
 import uz.gita.bookapi.data.remote.dto.book.request.ChangeFavRequest
 import uz.gita.bookapi.data.remote.dto.book.request.DeleteBookRequest
 import uz.gita.bookapi.data.remote.dto.user.request.PostUserBooksRequest
+import uz.gita.bookapi.data.remote.service.BookApi
 import uz.gita.bookapi.domain.repository.BookRepository
 
-class BookRepositoryImpl : BookRepository {
+class BookRepositoryImpl(
+    private val bookApi: BookApi,
+    private val shp: Shp,
+    val context: Context
+) : BookRepository {
 
     override suspend fun postBook(): Flow<ResultData<Unit>> {
         TODO("Not yet implemented")
