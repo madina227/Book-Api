@@ -13,15 +13,14 @@ import uz.gita.bookapi.data.remote.dto.auth.request.SignInRequest
 import uz.gita.bookapi.data.remote.dto.auth.request.SignInVerifyRequest
 import uz.gita.bookapi.data.remote.dto.auth.request.SignUpRequest
 import uz.gita.bookapi.data.remote.dto.auth.request.SignUpVerifyRequest
+import uz.gita.bookapi.data.remote.dto.auth.response.SignInResponse
 import uz.gita.bookapi.data.remote.service.AuthApi
 import uz.gita.bookapi.domain.repository.AuthRepository
 import uz.gita.bookapi.utils.hasConnection
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
-    private val authApi: AuthApi,
-    @ApplicationContext val context: Context,
-    private val shp: Shp
+    private val authApi: AuthApi, @ApplicationContext val context: Context, private val shp: Shp
 ) : AuthRepository {
     override suspend fun signUp(signUpRequest: SignUpRequest): Flow<ResultData<Unit>> =
         flow<ResultData<Unit>> {
@@ -81,33 +80,11 @@ class AuthRepositoryImpl @Inject constructor(
             }
         }.flowOn(IO)
 
-    override suspend fun signIn(signInRequest: SignInRequest): Flow<ResultData<Unit>> =
-        flow<ResultData<Unit>> {
-            if (hasConnection(context)) {
-                emit(ResultData.HasConnection(true))
-                val response = authApi.signIn(signInRequest)
-                emit(ResultData.Loading(true))
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        shp.token = it.token
-                        emit(ResultData.Success(Unit))
-                        emit(ResultData.Loading(false))
-                    }
-                } else {
-                    emit(ResultData.Loading(false))
-                    response.body()?.let {
-                        emit(ResultData.Fail(it.token))
-                    }
-                }
-            } else {
-                emit(ResultData.HasConnection(false))
-            }
-        }.catch { error ->
-            emit(ResultData.Loading(false))
-            error.message?.let { msg ->
-                emit(ResultData.Fail(msg))
-            }
-        }.flowOn(IO)
+    override suspend fun signIn(signInRequest: SignInRequest): SignInResponse {
+        val response = authApi.signIn(signInRequest)
+        shp.token = response.token
+        return response
+    }
 
     override suspend fun signInVerify(signInVerifyRequest: SignInVerifyRequest): Flow<ResultData<Unit>> =
         flow<ResultData<Unit>> {

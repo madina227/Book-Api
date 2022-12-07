@@ -28,7 +28,7 @@ interface AuthApi {
     @POST("auth/sign-in")
     suspend fun signIn(
         @Body signInRequest: SignInRequest
-    ): Response<SignInResponse>
+    ): SignInResponse
 
     @POST("auth/sign-in/verify")
     suspend fun signInVerify(

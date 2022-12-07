@@ -14,14 +14,13 @@ import kotlinx.coroutines.launch
 import uz.gita.bookapi.R
 import uz.gita.bookapi.data.remote.dto.auth.request.SignInRequest
 import uz.gita.bookapi.databinding.ScreenLogInBinding
-import uz.gita.bookapi.presentation.login.vm.LoginScreenViewModel
 import uz.gita.bookapi.presentation.viewModels.LoginScreenViewModelImpl
 
 @AndroidEntryPoint
 class LoginScreen : Fragment(R.layout.screen_log_in) {
 
     private val viewBinding: ScreenLogInBinding by viewBinding(ScreenLogInBinding::bind)
-    private val viewModel: LoginScreenViewModel by viewModels<LoginScreenViewModelImpl>()
+    private val viewModel by viewModels<LoginScreenViewModelImpl>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,7 +33,7 @@ class LoginScreen : Fragment(R.layout.screen_log_in) {
         viewBinding.btnConfirm.setOnClickListener {
             val number = viewBinding.enterPhone.text.toString()
             val password = viewBinding.enterPassword.text.toString()
-                viewModel.openMainScreen(SignInRequest(number, password))
+            viewModel.openMainScreen(number,password)
         }
 
         viewModel.message.onEach {
@@ -43,6 +42,10 @@ class LoginScreen : Fragment(R.layout.screen_log_in) {
             } else {
                 Toast.makeText(requireContext(), "ma'lumotla xato", Toast.LENGTH_SHORT).show()
             }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.errorMsg.onEach {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 

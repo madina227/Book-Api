@@ -21,7 +21,7 @@ interface AuthRepository {
 
     suspend fun signUpVerify(signUpVerifyRequest: SignUpVerifyRequest): Flow<ResultData<Unit>>
 
-    suspend fun signIn(signInRequest: SignInRequest): Flow<ResultData<Unit>>
+    suspend fun signIn(signInRequest: SignInRequest): SignInResponse
 
     suspend fun signInVerify(signInVerifyRequest: SignInVerifyRequest): Flow<ResultData<Unit>>
 }
