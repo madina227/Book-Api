@@ -34,16 +34,17 @@ class LoginScreenViewModelImpl @Inject constructor(
     override val message =
         MutableSharedFlow<Boolean>(onBufferOverflow = BufferOverflow.DROP_OLDEST, replay = 1)
 
-    override suspend fun openSignUpScreen() {
-        navigator.navigateTo(LoginScreenDirections.actionLoginScreenToSignUpScreen())
+    override fun openSignUpScreen() {
+        viewModelScope.launch {
+            navigator.navigateTo(LoginScreenDirections.actionLoginScreenToSignUpScreen())
+        }
     }
 
-    override suspend fun openMainScreen(signInRequest: SignInRequest) {
+    override fun openMainScreen(signInRequest: SignInRequest) {
         val checkPassword = checkPasswordUseCase.checkPassword(signInRequest.password)
         val checkNumber = numberUseCase.checkNumber(signInRequest.phone)
-
-        if (checkPassword && checkNumber.isNotEmpty()) {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            if (checkPassword && checkNumber.isNotEmpty()) {
                 repository.signIn(SignInRequest(checkNumber, signInRequest.password))
                     .collectLatest {
                         when (it) {
@@ -53,10 +54,8 @@ class LoginScreenViewModelImpl @Inject constructor(
                             is ResultData.Success -> navigator.navigateTo(LoginScreenDirections.actionLoginScreenToMainScreen())
                         }
                     }
-            }
-            message.emit(true)
-        } else message.emit(false)
+                message.emit(true)
+            } else message.emit(false)
+        }
     }
-
-
 }

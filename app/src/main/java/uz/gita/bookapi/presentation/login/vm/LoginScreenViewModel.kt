@@ -15,7 +15,7 @@ interface LoginScreenViewModel {
     val errorMsg: Flow<String>
     val message: Flow<Boolean>
 
-    suspend fun openSignUpScreen()
+    fun openSignUpScreen()
 
-    suspend fun openMainScreen(signInRequest: SignInRequest)
+    fun openMainScreen(signInRequest: SignInRequest)
 }

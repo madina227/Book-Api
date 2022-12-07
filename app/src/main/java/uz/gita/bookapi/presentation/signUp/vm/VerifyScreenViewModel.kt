@@ -9,6 +9,6 @@ import uz.gita.bookapi.data.remote.dto.auth.request.SignUpVerifyRequest
  **/
 interface VerifyScreenViewModel {
 
-    suspend fun checkCode(signUpVerifyRequest: SignUpVerifyRequest)
-    suspend fun back()
+    fun checkCode(signUpVerifyRequest: SignUpVerifyRequest)
+    fun back()
 }

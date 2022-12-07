@@ -1,7 +1,9 @@
 package uz.gita.bookapi.presentation.viewModels
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import uz.gita.bookapi.data.remote.dto.auth.request.SignUpVerifyRequest
 import uz.gita.bookapi.domain.navigation.Navigator
 import uz.gita.bookapi.domain.repository.AuthRepository
@@ -15,12 +17,16 @@ class VerifyScreenViewModelImpl @Inject constructor(
     private val navigator: Navigator
 ) : VerifyScreenViewModel, ViewModel() {
 
-    override suspend fun checkCode(signUpVerifyRequest: SignUpVerifyRequest) {
-        repository.signUpVerify(signUpVerifyRequest)
-        navigator.navigateTo(SignUpVerifyScreenDirections.actionSignUpVerifyScreenToLoginScreen())
+    override fun checkCode(signUpVerifyRequest: SignUpVerifyRequest) {
+        viewModelScope.launch {
+            repository.signUpVerify(signUpVerifyRequest)
+            navigator.navigateTo(SignUpVerifyScreenDirections.actionSignUpVerifyScreenToLoginScreen())
+        }
     }
 
-    override suspend fun back() {
-        navigator.back()
+    override fun back() {
+        viewModelScope.launch {
+            navigator.back()
+        }
     }
 }

@@ -10,7 +10,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import uz.gita.bookapi.R
 import uz.gita.bookapi.databinding.ScreenSignUpBinding
 import uz.gita.bookapi.presentation.signUp.vm.SignUpScreenViewModel
@@ -32,16 +31,12 @@ class SignUpScreen : Fragment(R.layout.screen_sign_up) {
             val password1 = viewBinding.enterPassword.text.toString()
             val password2 = viewBinding.reEnterPassword.text.toString()
 
-            viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.openVerifyScreen(firstName, lastName, phoneNumber, password1, password2)
-            }
         }
 
 
         viewBinding.imageView2.setOnClickListener {
-            viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.back()
-            }
         }
 
         viewModel.message.onEach {

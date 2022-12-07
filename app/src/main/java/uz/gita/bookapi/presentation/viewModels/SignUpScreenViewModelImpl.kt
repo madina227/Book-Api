@@ -34,7 +34,7 @@ class SignUpScreenViewModelImpl @Inject constructor(
     override val message =
         MutableSharedFlow<Boolean>(onBufferOverflow = BufferOverflow.DROP_OLDEST, replay = 1)
 
-    override suspend fun register(signUpRequest: SignUpRequest) {
+    private fun register(signUpRequest: SignUpRequest) {
         viewModelScope.launch {
             repository.signUp(signUpRequest).collectLatest {
                 when (it) {
@@ -47,33 +47,37 @@ class SignUpScreenViewModelImpl @Inject constructor(
         }
     }
 
-    override suspend fun back() {
-        navigator.back()
+    override fun back() {
+        viewModelScope.launch {
+            navigator.back()
+        }
     }
 
-    override suspend fun openVerifyScreen(
+    override fun openVerifyScreen(
         firstName: String,
         lastName: String,
         number: String,
         password1: String,
         password2: String
     ) {
-        if (useCase.checkName(firstName) && useCase.checkName(lastName) && useCase.checkSamePassword(
-                password1,
-                password2
-            ) && numberUseCase.checkNumber(number).length > 10
-        ) {
-            message.emit(true)
-            register(
-                SignUpRequest(
-                    firstName = firstName,
-                    lastName = lastName,
-                    phone = numberUseCase.checkNumber(number),
-                    password = password1
+        viewModelScope.launch {
+            if (useCase.checkName(firstName) && useCase.checkName(lastName) && useCase.checkSamePassword(
+                    password1,
+                    password2
+                ) && numberUseCase.checkNumber(number).length > 10
+            ) {
+                message.emit(true)
+                register(
+                    SignUpRequest(
+                        firstName = firstName,
+                        lastName = lastName,
+                        phone = numberUseCase.checkNumber(number),
+                        password = password1
+                    )
                 )
-            )
-        } else {
-            message.emit(false)
+            } else {
+                message.emit(false)
+            }
         }
     }
 }

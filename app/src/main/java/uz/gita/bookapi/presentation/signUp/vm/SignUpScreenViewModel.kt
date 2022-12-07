@@ -1,7 +1,6 @@
 package uz.gita.bookapi.presentation.signUp.vm
 
 import kotlinx.coroutines.flow.Flow
-import uz.gita.bookapi.data.remote.dto.auth.request.SignUpRequest
 
 
 /**
@@ -16,7 +15,6 @@ interface SignUpScreenViewModel {
     val errorMsg: Flow<String>
     val message:Flow<Boolean>
 
-    suspend fun register(signUpRequest: SignUpRequest)
-    suspend fun back()
-    suspend fun openVerifyScreen(firstName:String, lastName:String, number:String, password1:String, password2: String)
+    fun back()
+    fun openVerifyScreen(firstName:String, lastName:String, number:String, password1:String, password2: String)
 }

@@ -3,7 +3,6 @@ package uz.gita.bookapi.data.remote.service
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.POST
 import uz.gita.bookapi.data.remote.dto.book.request.PostBookRequest
 import uz.gita.bookapi.data.remote.dto.book.response.GetBooksResponse
@@ -16,10 +15,10 @@ interface BookApi {
     suspend fun postBook(
         @Body postBookRequest: PostBookRequest
     ): Response<PostBookResponse>
-
+//headerdan beriladgan malumotti yani tokenni interceptordan bervorsa boladi, shunaqa yozamiz
     @GET("books")
     suspend fun getBooks(
-        @Header("Authorization") bearerToken: String,
+//        @Header("Authorization") bearerToken: String,
         @Body getBooksRequest: PostUserBooksRequest
     ): Response<GetBooksResponse>
 }

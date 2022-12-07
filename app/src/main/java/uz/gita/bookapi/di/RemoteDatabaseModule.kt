@@ -12,6 +12,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import uz.gita.bookapi.data.local.Shp
 import uz.gita.bookapi.data.remote.service.AuthApi
 import uz.gita.bookapi.data.remote.service.BookApi
 import uz.gita.bookapi.data.remote.service.UserApi
@@ -25,6 +26,15 @@ class RemoteDatabaseModule {
     @Provides
     @Singleton
     fun client(@ApplicationContext context: Context): OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor { chain ->
+            val request = chain
+                .request()
+                .newBuilder()
+                .addHeader("authorization", "Bearer ${Shp(context).token}")
+                .build()
+
+            chain.proceed(request)
+        }
         .addInterceptor(PlutoInterceptor())
         .addInterceptor(ChuckerInterceptor(context))
         .build()
