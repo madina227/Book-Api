@@ -18,11 +18,7 @@ import uz.gita.bookapi.domain.repository.AuthRepository
 import uz.gita.bookapi.utils.hasConnection
 import javax.inject.Inject
 
-class AuthRepositoryImpl @Inject constructor(
-    private val authApi: AuthApi,
-    @ApplicationContext val context: Context,
-    private val shp: Shp
-) : AuthRepository {
+class AuthRepositoryImpl : AuthRepository {
     override suspend fun signUp(signUpRequest: SignUpRequest): Flow<ResultData<Unit>> =
         flow<ResultData<Unit>> {
             if (hasConnection(context = context)) {
