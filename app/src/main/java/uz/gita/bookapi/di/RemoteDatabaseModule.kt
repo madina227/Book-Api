@@ -50,11 +50,9 @@ class RemoteDatabaseModule {
             .build()
     }
 
-
     @Provides
     @Singleton
     fun provideAuthApi(retrofit: Retrofit): AuthApi = retrofit.create(AuthApi::class.java)
-
 
     @Provides
     @Singleton

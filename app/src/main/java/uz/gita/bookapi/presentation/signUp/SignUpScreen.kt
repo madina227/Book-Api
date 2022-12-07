@@ -21,6 +21,7 @@ class SignUpScreen : Fragment(R.layout.screen_sign_up) {
     private val viewBinding: ScreenSignUpBinding by viewBinding(ScreenSignUpBinding::bind)
     private val viewModel: SignUpScreenViewModel by viewModels<SignUpScreenViewModelImpl>()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -31,12 +32,12 @@ class SignUpScreen : Fragment(R.layout.screen_sign_up) {
             val password1 = viewBinding.enterPassword.text.toString()
             val password2 = viewBinding.reEnterPassword.text.toString()
 
-                viewModel.openVerifyScreen(firstName, lastName, phoneNumber, password1, password2)
+            viewModel.openVerifyScreen(firstName, lastName, phoneNumber, password1, password2)
         }
 
 
         viewBinding.imageView2.setOnClickListener {
-                viewModel.back()
+            viewModel.back()
         }
 
         viewModel.message.onEach {
