@@ -1,6 +1,6 @@
-package uz.gita.bookapi.data.remote.dto.book.response
+package uz.gita.bookapi.data.remote.dto.book.request
 
-data class PostBookResponse(
+data class PutBookRequest(
     val id: Int,
     val title: String,
     val author: String,

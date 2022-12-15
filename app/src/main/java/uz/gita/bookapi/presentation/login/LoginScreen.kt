@@ -34,7 +34,8 @@ class LoginScreen : Fragment(R.layout.screen_log_in) {
         viewBinding.btnConfirm.setOnClickListener {
             val number = viewBinding.enterPhone.text.toString()
             val password = viewBinding.enterPassword.text.toString()
-                viewModel.openMainScreen(SignInRequest(number, password))
+
+            viewModel.openMainScreen(SignInRequest(number, password))
         }
 
         viewModel.message.onEach {

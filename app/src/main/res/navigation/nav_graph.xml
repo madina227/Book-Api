@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/splashScreen">
 
     <fragment
         android:id="@+id/splashScreen"
-        android:name="uz.gita.bookapi.presentation.SplashScreen"
-        android:label="SplashScreen">
+        android:name="uz.gita.bookapi.presentation.splash.SplashScreen"
+        android:label="SplashScreen"
+        tools:layout="@layout/screen_splash">
         <action
             android:id="@+id/action_splashScreen_to_loginScreen"
             app:destination="@id/loginScreen"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashScreen_to_baseScreen"
+            app:destination="@id/baseScreen"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signUpScreen"
         android:name="uz.gita.bookapi.presentation.signUp.SignUpScreen"
-        android:label="SignUpScreen">
+        android:label="SignUpScreen"
+        tools:layout="@layout/screen_sign_up">
         <action
             android:id="@+id/action_signUpScreen_to_signUpVerifyScreen"
             app:destination="@id/signUpVerifyScreen" />
@@ -25,7 +33,8 @@
     <fragment
         android:id="@+id/signUpVerifyScreen"
         android:name="uz.gita.bookapi.presentation.signUp.SignUpVerifyScreen"
-        android:label="SignUpVerifyScreen" >
+        android:label="SignUpVerifyScreen"
+        tools:layout="@layout/screen_sign_up_verify">
         <action
             android:id="@+id/action_signUpVerifyScreen_to_loginScreen"
             app:destination="@id/loginScreen"
@@ -35,16 +44,18 @@
     <fragment
         android:id="@+id/loginScreen"
         android:name="uz.gita.bookapi.presentation.login.LoginScreen"
-        android:label="LoginScreen">
+        android:label="LoginScreen"
+        tools:layout="@layout/screen_log_in">
         <action
             android:id="@+id/action_loginScreen_to_signUpScreen"
             app:destination="@id/signUpScreen" />
         <action
-            android:id="@+id/action_loginScreen_to_mainScreen"
-            app:destination="@id/mainScreen" />
+            android:id="@+id/action_loginScreen_to_baseScreen"
+            app:destination="@id/baseScreen" />
     </fragment>
     <fragment
-        android:id="@+id/mainScreen"
-        android:name="uz.gita.bookapi.presentation.main.MainScreen"
-        android:label="MainScreen" />
+        android:id="@+id/baseScreen"
+        android:name="uz.gita.bookapi.presentation.screen.base.BaseScreen"
+        android:label="BaseScreen"
+        tools:layout="@layout/screen_base" />
 </navigation>

@@ -6,14 +6,14 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import uz.gita.bookapi.data.remote.dto.user.request.PostRateRequest
 import uz.gita.bookapi.data.remote.dto.user.request.PostUserBooksRequest
-import uz.gita.bookapi.data.remote.dto.user.response.GetUsersResponse
+import uz.gita.bookapi.data.remote.dto.user.response.AllUsers
 import uz.gita.bookapi.data.remote.dto.user.response.PostRateResponse
 import uz.gita.bookapi.data.remote.dto.user.response.PostUserBooksResponse
 
 interface UserApi {
 
     @GET("books/users")
-    suspend fun getUsers(): Response<GetUsersResponse>
+    suspend fun getUsers(): Response<AllUsers>
 
     @POST("books/user")
     suspend fun postUser(

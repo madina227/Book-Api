@@ -1,20 +1,19 @@
-package uz.gita.bookapi.presentation.signUp.vm
+package uz.gita.bookapi.presentation.users.vm
 
 import kotlinx.coroutines.flow.Flow
-
+import uz.gita.bookapi.data.remote.dto.user.response.AllUsers
 
 /**
  * @author : Madina Agzamova
  * @mailto : madina.agzamova.dev@gmail.com
- * @created : 06/12/2022, Tuesday, 12:14
+ * @created : 13/12/2022, Tuesday, 12:13
  **/
-interface SignUpScreenViewModel {
+interface UsersViewModel {
 
     val isLoading: Flow<Boolean>
     val isConnecting: Flow<Boolean>
     val errorMsg: Flow<String>
     val message: Flow<Boolean>
 
-    fun back()
-    fun openVerifyScreen(firstName:String, lastName:String, number:String, password1:String, password2: String)
+    val getAllUsers: Flow<AllUsers>
 }

@@ -1,6 +1,7 @@
 package uz.gita.bookapi.data.repositoryImpl
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -15,10 +16,11 @@ import uz.gita.bookapi.data.remote.dto.auth.request.SignUpVerifyRequest
 import uz.gita.bookapi.data.remote.service.AuthApi
 import uz.gita.bookapi.domain.repository.AuthRepository
 import uz.gita.bookapi.utils.hasConnection
+import javax.inject.Inject
 
-class AuthRepositoryImpl(
+class AuthRepositoryImpl @Inject constructor(
     private val authApi: AuthApi,
-    val context: Context,
+    @ApplicationContext private val context: Context,
     private val shp: Shp
 ) : AuthRepository {
     override suspend fun signUp(signUpRequest: SignUpRequest): Flow<ResultData<Unit>> =
@@ -134,4 +136,15 @@ class AuthRepositoryImpl(
                 emit(ResultData.Fail(msg))
             }
         }.flowOn(IO)
+
+    override suspend fun isFirst(): Boolean {
+        return if (shp.isFirstOpen) {
+            shp.isFirstOpen = false
+            true
+        } else {
+            false
+        }
+    }
+
+
 }

@@ -25,6 +25,7 @@ class LoginScreenViewModelImpl @Inject constructor(
     private val numberUseCase: BaseSignUseCase,
 ) : LoginScreenViewModel, ViewModel() {
 
+
     override val isLoading =
         MutableSharedFlow<Boolean>(onBufferOverflow = BufferOverflow.DROP_OLDEST, replay = 1)
     override val isConnecting =
@@ -51,7 +52,7 @@ class LoginScreenViewModelImpl @Inject constructor(
                             is ResultData.Fail -> errorMsg.emit(it.message)
                             is ResultData.HasConnection -> isConnecting.emit(it.hasConnection)
                             is ResultData.Loading -> isLoading.emit(it.isLoading)
-                            is ResultData.Success -> navigator.navigateTo(LoginScreenDirections.actionLoginScreenToMainScreen())
+                            is ResultData.Success -> navigator.navigateTo(LoginScreenDirections.actionLoginScreenToBaseScreen())
                         }
                     }
                 message.emit(true)
